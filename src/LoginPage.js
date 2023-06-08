@@ -3,13 +3,13 @@ import useForm from './useForm';
 import { login } from "./api/users"
 
 
-const LoginPage = () => {
+const LoginPage = ({callbackFnc}) => {
 
     const createLogin = useMutation({
         mutationFn: login,
         onSuccess: data => {
-
-            console.log(",",data);
+            console.log(data)
+            callbackFnc(data.username)
         },
     })
 

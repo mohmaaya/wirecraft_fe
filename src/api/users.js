@@ -2,7 +2,7 @@ import axios from "axios"
 
 export function createUser({ data }) {
     return axios
-        .post("http://localhost:5000/users/signup", {
+        .post("http://localhost:5000/signup", {
           data
         })
         .then(res => res.data)
@@ -10,8 +10,14 @@ export function createUser({ data }) {
 
 export function login({ data }) {
     return axios
-        .post("http://localhost:5000/users/login", {
+        .post("http://localhost:5000/login", {
             data
         })
+        .then(res => res.data)
+}
+
+export function logOut() {
+    return axios
+        .delete("http://localhost:5000/logout")
         .then(res => res.data)
 }
