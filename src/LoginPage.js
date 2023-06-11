@@ -1,15 +1,20 @@
 import { useMutation } from "@tanstack/react-query"
 import useForm from './useForm';
 import { login } from "./api/users"
+import { useNavigate } from 'react-router-dom'
 
 
-const LoginPage = ({callbackFnc}) => {
+const LoginPage = () => {
+
+    const navigate = useNavigate();
 
     const createLogin = useMutation({
         mutationFn: login,
         onSuccess: data => {
             console.log(data)
-            callbackFnc(data.username)
+            localStorage.setItem('loggedUsername', data.username);
+
+            navigate('/Home');
         },
     })
 
@@ -26,6 +31,7 @@ const LoginPage = ({callbackFnc}) => {
     );
 
     return (
+        <>
         <form onSubmit={handleSubmit}>
             <input
                 type="text"
@@ -43,6 +49,11 @@ const LoginPage = ({callbackFnc}) => {
             <button type="submit">Submit</button>
 
         </form>
+
+            <button onClick={()=> navigate('/SignUp')}>Sign Up</button>
+
+        </>
+
     );
 
 };

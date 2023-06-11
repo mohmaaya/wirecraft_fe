@@ -6,17 +6,19 @@ import NearbyFriends from './Friends/NearbyFriends'
 import PendingRequests from './Friends/PendingRequests'
 import { useState } from 'react'
 import { logOut } from './api/users'
+import { useNavigate } from 'react-router-dom'
 
-const UserIndex = ({username}) => {
+const UserIndex = () => {
 
-
+    const navigate = useNavigate();
+    const username = localStorage.getItem('loggedUsername');
     const [currTabRender, setCurrTab] = useState(null);
 
     const userlogOut = useMutation({
         mutationFn: logOut,
         onSuccess: () => {
-
-            console.log("Looged Out");
+            localStorage.removeItem('loggedUsername');
+            navigate('/Login');
         },
     })
 
