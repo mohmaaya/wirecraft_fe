@@ -1,49 +1,46 @@
-import { useMutation } from "@tanstack/react-query"
 import AddFriends from './Friends/AddFriends'
-import DeleteFriend from './Friends/DeleteFriend'
+import RemoveFriend from './Friends/RemoveFriend'
 import MyFriends from './Friends/MyFriends'
 import NearbyFriends from './Friends/NearbyFriends'
+import SentRequests from './Friends/SentRequests'
 import PendingRequests from './Friends/PendingRequests'
+import UserProfile from './UserProfile'
 import { useState } from 'react'
-import { logOut } from './api/users'
-import { useNavigate } from 'react-router-dom'
+import LogOut  from './Logout'
 
 const UserIndex = () => {
 
-    const navigate = useNavigate();
     const username = localStorage.getItem('loggedUsername');
     const [currTabRender, setCurrTab] = useState(null);
-
-    const userlogOut = useMutation({
-        mutationFn: logOut,
-        onSuccess: () => {
-            localStorage.removeItem('loggedUsername');
-            navigate('/Login');
-        },
-    })
+    const userLogOut = LogOut();
 
     return (
         
         <div>
             <h2> Welcome {username} </h2>
             <br/>
-            <button onClick={() => { setCurrTab(<AddFriends username={username} />) }}>
+            <button onClick={() => { setCurrTab(<AddFriends />) }}>
                 Add Friends
             </button>
-            <button onClick={() => { setCurrTab(<MyFriends username={username} />) }}>
+            <button onClick={() => { setCurrTab(<MyFriends />) }}>
                 My Friends
             </button>
-            <button onClick={() => { setCurrTab(<PendingRequests username={username} />) }}>
+            <button onClick={() => { setCurrTab(<PendingRequests  />) }}>
                 Pending Requests
             </button>
-            <button onClick={() => { setCurrTab(<DeleteFriend username={username} />) }}>
-                Delete a friend
+            <button onClick={() => { setCurrTab(<SentRequests />) }}>
+                Sent Requests
             </button>
-            <button onClick={() => { setCurrTab(<NearbyFriends username={username} />) }}>
+            <button onClick={() => { setCurrTab(<RemoveFriend />) }}>
+                Remove a friend
+            </button>
+            <button onClick={() => { setCurrTab(<NearbyFriends />) }}>
                 Friends nearby
             </button>
-
-            <button onClick={() => { userlogOut.mutate() }}>Log Out</button>
+            <button onClick={() => { setCurrTab(<UserProfile />) }}>
+                My Profile
+            </button>
+            <button onClick={() => { userLogOut.mutate() }}>Log Out</button>
 
             {currTabRender}
 

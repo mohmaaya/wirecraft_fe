@@ -1,18 +1,18 @@
-import {  myFriendsApi } from "../api/users"
-import PopUp from "../PopUp"
+import { myDetailsApi } from "./api/users"
+import PopUp from "./PopUp"
 import { useState } from 'react'
-import {  useQuery } from "@tanstack/react-query"
-import GenerateNewToken from "../RefreshToken"
-import LogOut from '../Logout'
+import { useQuery } from "@tanstack/react-query"
+import GenerateNewToken from "./RefreshToken"
+import LogOut from './Logout'
 
-const MyFriends = () => {
+const UserProfile = () => {
     const [showPopUp, setShowPopUp] = useState(false);
     const userLogOut = LogOut();
     const genNewToken = GenerateNewToken();
 
-    const myFriends = useQuery({
-        queryKey: ["myFriends"],
-        queryFn: myFriendsApi,
+    const myDetails = useQuery({
+        queryKey: ["myDetails"],
+        queryFn: myDetailsApi,
         config: {
             credentials: 'include',
         },
@@ -38,20 +38,29 @@ const MyFriends = () => {
 
     return (
         <div>
-            <h1>My Friends</h1>
+            <h1>My Details</h1>
 
             <ul style={{ listStyleType: 'none', padding: 0 }}>
-                {myFriends.data ? myFriends.data.map(friend => (
+                {myDetails.data ?
                     <li
-                        key={friend.username}
+                        key={myDetails.data.name}
                         style={{ marginBottom: '1rem' }}
                     >
-                        {friend.name}
+                        Name: {myDetails.data.name}
+                        <br />
+                        Date of Birth:{myDetails.data.dob}
                         <br/>
-                        {friend.dob}
+                        City: {myDetails.data.city}
+                        <br />
+                        Latitude: {myDetails.data.latitude} Longitude: {myDetails.data.longitude}
+                        <br />
+                        Description: {myDetails.data.desciption}
+                        <br />
+                        Friends: {myDetails.data.friends}
+                        <br />
                     </li>
 
-                )) : []}
+                 : []}
             </ul>
 
             {showPopUp && (
@@ -64,4 +73,4 @@ const MyFriends = () => {
     )
 };
 
-export default MyFriends;
+export default UserProfile;

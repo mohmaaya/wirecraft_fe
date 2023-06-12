@@ -1,18 +1,18 @@
-import {  myFriendsApi } from "../api/users"
+import { sentRequestsApi, cancelSentRequestApi } from "../api/users"
 import PopUp from "../PopUp"
 import { useState } from 'react'
-import {  useQuery } from "@tanstack/react-query"
+import { useQuery, useMutation } from "@tanstack/react-query"
 import GenerateNewToken from "../RefreshToken"
 import LogOut from '../Logout'
 
-const MyFriends = () => {
+const SentRequests = () => {
     const [showPopUp, setShowPopUp] = useState(false);
     const userLogOut = LogOut();
     const genNewToken = GenerateNewToken();
 
-    const myFriends = useQuery({
-        queryKey: ["myFriends"],
-        queryFn: myFriendsApi,
+    const sentRequests = useQuery({
+        queryKey: ["sentRequests"],
+        queryFn: sentRequestsApi,
         config: {
             credentials: 'include',
         },
@@ -26,6 +26,24 @@ const MyFriends = () => {
         retry: 1,
     })
 
+    const cancelRequest = useMutation({
+        mutationFn: cancelSentRequestApi,
+        onSuccess: data => {
+            console.log(data)
+        },
+        onError: (error) => {
+            if (error.response && error.response.status === 401) {
+                setShowPopUp(true);
+            } else {
+                console.log("Something went Wrong!")
+            }
+        }
+    })
+
+    const handleRequestCancel = friendUsername => {
+        cancelRequest.mutate({ friendUsername });
+    };
+
     const handlePopupYesClick = () => {
         genNewToken.mutate();
         setShowPopUp(false);
@@ -38,21 +56,25 @@ const MyFriends = () => {
 
     return (
         <div>
-            <h1>My Friends</h1>
+            <h1>Sent Requests</h1>
 
             <ul style={{ listStyleType: 'none', padding: 0 }}>
-                {myFriends.data ? myFriends.data.map(friend => (
+                {sentRequests.data ? sentRequests.data.map(req => (
                     <li
-                        key={friend.username}
+                        key={req.username}
                         style={{ marginBottom: '1rem' }}
                     >
-                        {friend.name}
-                        <br/>
-                        {friend.dob}
+                        {req.name}
+                        <br />
+                        <button onClick={() => handleRequestCancel(req.username)}>
+                        Cancel Request
+                    </button>
+                       
                     </li>
 
                 )) : []}
             </ul>
+
 
             {showPopUp && (
                 <PopUp
@@ -64,4 +86,4 @@ const MyFriends = () => {
     )
 };
 
-export default MyFriends;
+export default SentRequests;
