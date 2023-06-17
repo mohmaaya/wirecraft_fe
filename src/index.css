@@ -10,7 +10,7 @@ height: 100%;
 
 .App {
 background-color: #989897;
-padding: 20px; /* Adjust the padding as needed */
+padding: 20px; 
 display: flex;
 flex-direction: column;
 min-height: 100vh;
@@ -92,10 +92,10 @@ justify-content: space-between;
 align-items: center;
 gap: 2rem;
 padding: 0 1rem;
-height: 60px; /* Set a fixed height */
-border-top: 1px solid #fff; /* Add top border */
-border-bottom: 1px solid #fff; /* Add bottom border */
-border-radius: 5px; /* Add border radius for smooth edges */
+height: 60px; 
+border-top: 1px solid #fff; 
+border-bottom: 1px solid #fff; 
+border-radius: 5px; 
 }
 
 .nav ul {
@@ -105,7 +105,7 @@ list-style: none;
 display: flex;
 gap: 3rem;
 height: 100%;
-align-items: center; /* Align vertically in the center */
+align-items: center; 
     
 }
 
@@ -122,25 +122,25 @@ height: 100%;
 position: relative;
 overflow: hidden;
 transition: background-color 0.3s ease-in-out;
-flex: 1; /* Distribute remaining space evenly among the list items */
+flex: 1; 
 text-align: center;
 }
 
 .nav li.active {
 background-color: #777;
 border-radius: 5px;
-padding-top: 10px; /* Increase the top padding to extend the background color */
+padding-top: 10px; 
 padding-bottom: 10px;
 }
 
 .nav li:last-child {
-text-align: right; /* Align the last list item to the right */
+text-align: right; 
 }
 
 .nav li:hover {
 background-color: #777;
 border-radius: 5px;
-padding-top: 10px; /* Increase the top padding to extend the background color */
+padding-top: 10px; 
 padding-bottom: 10px;
 }
 
@@ -148,7 +148,7 @@ padding-bottom: 10px;
 display: inline-flex;
 align-items: center;
 padding: 0.5rem;
-padding-top: 15px; /* Increase the top padding to extend the background color */
+padding-top: 15px;
 padding-bottom: 15px;
 height: 100%;
 }

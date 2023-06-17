@@ -1,6 +1,6 @@
 import SignUpPage from "./SignUpPage"
 import LoginPage from "./LoginPage"
-import Navbar from './UserIndex'
+import Navbar from './userIndex'
 import { useEffect } from 'react'
 import { Route, Routes, useNavigate, useLocation } from 'react-router-dom'
 import GenerateNewToken from './RefreshToken'
