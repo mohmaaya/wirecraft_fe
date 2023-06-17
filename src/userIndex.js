@@ -1,56 +1,48 @@
-import AddFriends from './Friends/AddFriends'
-import RemoveFriend from './Friends/RemoveFriend'
-import MyFriends from './Friends/MyFriends'
-import NearbyFriends from './Friends/NearbyFriends'
-import SentRequests from './Friends/SentRequests'
-import PendingRequests from './Friends/PendingRequests'
-import UserProfile from './UserProfile'
-import { useState } from 'react'
+
+import { Link, useMatch, useResolvedPath } from "react-router-dom"
 import LogOut  from './Logout'
 
-const UserIndex = () => {
-
+export default function Navbar() {
     const username = localStorage.getItem('loggedUsername');
-    const [currTabRender, setCurrTab] = useState(null);
     const userLogOut = LogOut();
 
     return (
-        
-        <div>
-            <h2> Welcome {username} </h2>
-            <br/>
-            <button onClick={() => { setCurrTab(<AddFriends />) }}>
-                Add Friends
-            </button>
-            <button onClick={() => { setCurrTab(<MyFriends />) }}>
-                My Friends
-            </button>
-            <button onClick={() => { setCurrTab(<PendingRequests  />) }}>
-                Pending Requests
-            </button>
-            <button onClick={() => { setCurrTab(<SentRequests />) }}>
-                Sent Requests
-            </button>
-            <button onClick={() => { setCurrTab(<RemoveFriend />) }}>
-                Remove a friend
-            </button>
-            <button onClick={() => { setCurrTab(<NearbyFriends />) }}>
-                Friends nearby
-            </button>
-            <button onClick={() => { setCurrTab(<UserProfile />) }}>
-                My Profile
-            </button>
-            <button onClick={() => { userLogOut.mutate() }}>Log Out</button>
 
-            {currTabRender}
+            <nav className="nav">
+            <div >
+            <ul>
+                {username && (
+                    <>
+                        <CustomLink to="/Home/AddFriends">Add Friends</CustomLink>
+                        <CustomLink to="/Home/MyFriends">My Friends</CustomLink>
+                        <CustomLink to="/Home/NearbyFriends">Nearby Friends</CustomLink>
+                        <CustomLink to="/Home/PendingRequests">Pending Requests</CustomLink>
+                        <CustomLink to="/Home/RemoveFriend">Remove Friend</CustomLink>
+                        <CustomLink to="/Home/SentRequests">Sent Requests</CustomLink>
+                      
+                    </>
+                )}
+                    <CustomLink to="/About">About</CustomLink>
+                    {!username && (<CustomLink to="/Login">Login</CustomLink>)}
+                    {username && (<CustomLink to="/Home/MyProfile">My Profile</CustomLink>)}
+                    {username && (<li className="logout-btn"
+                        onClick={() => { userLogOut.mutate() }}>Log Out
+                    </li>)}
+                </ul>
+                </div>
+            </nav>
+    );
+}
 
-        </div>
-        
-        
-        
-        );
+function CustomLink({ to, children, ...props }) {
+    const resolvedPath = useResolvedPath(to)
+    const isActive = useMatch({ path: resolvedPath.pathname, end: true })
 
-
-};
-
-export default UserIndex;
+    return (
+        <li className={isActive ? "active" : ""}>
+            <Link to={to} {...props}>
+                {children}
+            </Link>
+        </li>
+    )
+}

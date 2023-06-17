@@ -19,9 +19,7 @@ const RemoveFriend = () => {
         onError: (error) => {
             if (error.response && error.response.status === 401) {
                 setShowPopUp(true);
-            } else {
-                console.log("Something went Wrong!")
-            }
+            } 
         },
         retry: 1,
     })
@@ -29,14 +27,12 @@ const RemoveFriend = () => {
     const sendFriendRequest = useMutation({
         mutationFn: removeFriendApi,
         onSuccess: data => {
-            console.log(data)
+            allFriends.refetch({ stale: true });
         },
         onError: (error) => {
             if (error.response && error.response.status === 401) {
                 setShowPopUp(true);
-            } else {
-                console.log("Something went Wrong!")
-            }
+            } 
         },
         retry: 1,
     })
@@ -56,20 +52,22 @@ const RemoveFriend = () => {
     };
 
     return (
-        <div>
-            <h1>Delete a Friend</h1>
+        <div className="friends-container">
+            <h1 className="friends-title">Delete a Friend</h1>
 
-            <ul style={{ listStyleType: 'none', padding: 0 }}>
-                {allFriends.data ? allFriends.data.map(friend => (
-                    <li
-                        key={friend.username}
-                        style={{ cursor: 'pointer', marginBottom: '1rem' }}
-                        onClick={() => handleFriendClick(friend.username)}
-                    >
+            <div className="friend-list-container">
+                {allFriends.data && allFriends.data.length > 0 ? (
+                    allFriends.data.map(friend => (
+                        <div key={friend.username} className="friend-item">
+                      
                         {friend.name}
-                    </li>
-                )) : []}
-            </ul>
+                        <button onClick={() => handleFriendClick(friend.username)}>Remove friend</button>
+                        </div>
+                     ))
+            ) : (
+                            <p className="no-friends-message">No friends to remove.</p>
+                )}
+            </div>
 
             {showPopUp && (
                 <PopUp

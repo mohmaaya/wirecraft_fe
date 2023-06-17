@@ -1,0 +1,98 @@
+.friends-container {
+    margin-top: -1rem;
+    padding-top: 1rem;
+    margin-bottom: auto;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    min-height: 200px;
+}
+
+
+.friends-title {
+font-size: 2rem;
+margin-bottom: 1rem;
+text-align: center; /* Center the text */
+font-family: Arial, sans-serif; /* Apply a font family of your choice */
+color: skyblue; /* Apply a sky blue color */
+text-decoration: underline; /* Add an underline to the text */
+}
+
+
+.friend-list-container {
+margin-bottom: 1rem;
+}
+
+.friend-item {
+    font-size: 1.2rem; /* Adjust the font size as needed */
+    font-family: Arial, sans-serif; /* Specify the desired font family */
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+}
+
+
+    .friend-item button {
+        cursor: pointer;
+        font-size: 1rem; /* Adjust the font size of the button as needed */
+        padding: 0.25rem 0.5rem; /* Adjust the padding of the button as needed */
+        background-color: grey; /* Set the background color of the button to grey */
+        color: white; /* Set the text color of the button */
+        border: none; /* Remove the button border */
+        border-radius: 4px; /* Apply border radius to create rounded corners */
+        margin-left: 10px;
+        transition: transform 0.3s ease;
+        position: absolute; /* Position the buttons relative to the friend item */
+        left: 400px; /* Adjust the distance from the left margin as needed */
+        top: 50%; /* Position the buttons vertically in the middle */
+        transform: translateY(-50%);
+    }
+
+.friend-item button:hover {
+background-color: lightblue; /* Set the background color of the button on hover */
+
+}
+
+
+
+.friend-item button:focus {
+outline: none; /* Remove the button outline on focus */
+}
+
+.no-friends-message {
+    ont-size: 1.2rem; /* Adjust the font size as needed */
+    font-family: Arial, sans-serif;
+}
+
+.friends-container select {
+    border-radius: 4px; /* Apply border radius to create rounded corners */
+    border: 1px solid #ccc; /* Add a border */
+    padding: 0.5rem; /* Adjust the padding as needed */
+    font-size: 1rem; /* Adjust the font size as needed */
+    width: 25%; /* Set the width to fill the container */
+}
+
+.friend-item button.second-button {
+    left: 500px; /* Adjust the distance from the left margin as needed */
+}
+
+
+.info-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.info-label {
+    width: 100px;
+    font-weight: bold;
+}
+
+.info-value {
+    margin-left: 1rem;
+}

@@ -5,7 +5,7 @@
     height: 100vh;
     padding: 2rem;
     box-sizing: border-box;
-    margin-top: -5rem;
+    margin-top: -15rem;
 }
 
 .signup-form {
@@ -76,4 +76,25 @@
     100% {
         text-shadow: none;
     }
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+.success-message {
+    color: lawngreen;
+    font-size: 20px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+.loading-message {
+    color: yellow;
+    font-size: 17px;
+    margin-bottom: 5px;
+    margin-top: 10px;
 }

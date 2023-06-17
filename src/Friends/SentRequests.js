@@ -19,9 +19,7 @@ const SentRequests = () => {
         onError: (error) => {
             if (error.response && error.response.status === 401) {
                 setShowPopUp(true);
-            } else {
-                console.log("Something went Wrong!")
-            }
+            } 
         },
         retry: 1,
     })
@@ -29,14 +27,12 @@ const SentRequests = () => {
     const cancelRequest = useMutation({
         mutationFn: cancelSentRequestApi,
         onSuccess: data => {
-            console.log(data)
+            sentRequests.refetch({ stale: true });
         },
         onError: (error) => {
             if (error.response && error.response.status === 401) {
                 setShowPopUp(true);
-            } else {
-                console.log("Something went Wrong!")
-            }
+            } 
         }
     })
 
@@ -55,26 +51,25 @@ const SentRequests = () => {
     };
 
     return (
-        <div>
-            <h1>Sent Requests</h1>
+        <div className="friends-container">
+            <h1 className="friends-title">Sent Requests</h1>
 
-            <ul style={{ listStyleType: 'none', padding: 0 }}>
-                {sentRequests.data ? sentRequests.data.map(req => (
-                    <li
-                        key={req.username}
-                        style={{ marginBottom: '1rem' }}
-                    >
+            <div className="friend-list-container">
+                {sentRequests.data && sentRequests.data.length > 0 ? (
+                    sentRequests.data.map(req => (
+                        <div key={req.username} className="friend-item">
+
                         {req.name}
-                        <br />
+                      
                         <button onClick={() => handleRequestCancel(req.username)}>
                         Cancel Request
                     </button>
-                       
-                    </li>
-
-                )) : []}
-            </ul>
-
+                        </div>
+                    ))
+                ) : (
+                    <p className="no-friends-message">No sent requests.</p>
+                )}
+            </div>
 
             {showPopUp && (
                 <PopUp

@@ -1,7 +1,7 @@
 import { myFriendsApi, closestFriendsApi } from "../api/users";
 import PopUp from "../PopUp";
 import { useState, useEffect } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import GenerateNewToken from "../RefreshToken";
 import LogOut from "../Logout";
 
@@ -21,8 +21,6 @@ const FriendsNearby = () => {
         onError: (error) => {
             if (error.response && error.response.status === 401) {
                 setShowPopUp(true);
-            } else {
-                console.log("Something went Wrong!");
             }
         },
         retry: 1,
@@ -32,14 +30,12 @@ const FriendsNearby = () => {
     const closestFriends = useMutation({
         mutationFn: closestFriendsApi,
         onSuccess: (data) => {
-            console.log(data);
+            myFriends.refetch({ stale: true });
         },
         onError: (error) => {
             if (error.response && error.response.status === 401) {
                 setShowPopUp(true);
-            } else {
-                console.log("Something went Wrong!");
-            }
+            } 
         },
         retry: 1,
     });
@@ -71,9 +67,9 @@ const FriendsNearby = () => {
 
 
     return (
-        <div>
-            <h1>Nearby Friends</h1>
-
+        <div className="friends-container">
+            <h1 className="friends-title">Nearby Friends</h1>
+            <div className="friend-list-container">
             <select onChange={handleSelect}>
                 <option value="">Select closest friends</option>
                 {friendOptions.map((friendNumber) => (
@@ -83,21 +79,33 @@ const FriendsNearby = () => {
                 ))}
             </select>
 
-            {closestFriends.data && <h3>My city: {closestFriends.data.city}</h3>}
+                {closestFriends.data  &&
+                    <h3>My city: {closestFriends.data.city}</h3>}
 
-            <ul style={{ listStyleType: "none", padding: 0 }}>
-                {closestFriends.data
-                    ? closestFriends.data.closestFriends.map((friend) => (
-                        <li key={friend.username} style={{ marginBottom: "1rem" }}>
-                            {friend.name}
-                            <br />
-                            {friend.city}
-                            <br />
-                            {friend.distance} km by Air.
-                        </li>
+           
+                {closestFriends.data && closestFriends.data.closestFriends.length > 0 ? (
+                    closestFriends.data.closestFriends.map(friend => (
+                        <div key={friend.username} className="friend-item">
+                            <div className="info-row">
+                                <span className="info-label">Name:</span>
+                                <span className="info-value">{friend.name}</span>
+                            </div>
+
+                            <div className="info-row">
+                                <span className="info-label">City:</span>
+                                <span className="info-value">{friend.city}</span>
+                            </div>
+
+                            <div className="info-row">
+                                <span className="info-label">Distance by Air:</span>
+                                <span className="info-value">{friend.distance} km</span>
+                            </div>
+                        </div>
                     ))
-                    : []}
-            </ul>
+                ) : (
+                    <p className="no-friends-message">No friends selected.</p>
+                )}
+            </div>
 
             {showPopUp && (
                 <PopUp onYes={handlePopupYesClick} onNo={handlePopupNoClick} />

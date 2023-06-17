@@ -19,23 +19,19 @@ const PendingRequests = () => {
         onError: (error) => {
             if (error.response && error.response.status === 401) {
                 setShowPopUp(true);
-            } else {
-                console.log("Something went Wrong!")
-            }
+            } 
         }, retry: 1,
     })
 
     const acceptRequest = useMutation({
         mutationFn: acceptRequestApi,
         onSuccess: data => {
-            console.log(data)
+            pendingRequests.refetch({ stale: true });
         },
         onError: (error) => {
             if (error.response && error.response.status === 401) {
                 setShowPopUp(true);
-            } else {
-                console.log("Something went Wrong!")
-            }
+            } 
         },
         retry: 1,
     })
@@ -43,13 +39,11 @@ const PendingRequests = () => {
     const declineRequest = useMutation({
         mutationFn: declineRequestApi,
         onSuccess: data => {
-            console.log(data)
+          
         },
         onError: (error) => {
             if (error.response && error.response.status === 401) {
                 setShowPopUp(true);
-            } else {
-                console.log("Something went Wrong!")
             }
         }
     })
@@ -73,29 +67,29 @@ const PendingRequests = () => {
     };
 
     return (
-        <div>
-            <h1>Add or Reject Friend Requests</h1>
+        <div className="friends-container">
+            <h1 className="friends-title">Add or Reject Friend Requests</h1>
 
-            <ul style={{ listStyleType: 'none', padding: 0 }}>
-                {pendingRequests.data
-                    ? pendingRequests.data.map(request => (
-                        <li
-                            key={request.username}
-                            style={{ cursor: 'pointer', marginBottom: '1rem' }}
-                        >
+            <div className="friend-list-container">
+                {pendingRequests.data && pendingRequests.data.length > 0 ? (
+                    pendingRequests.data.map(request => (
+                        <div key={request.username} className="friend-item">
+                           
                             {request.name}
-                            <br />
-                            <button onClick={() => handleFriendAccept(request.username)}>
+                            
+                            <button  onClick={() => handleFriendAccept(request.username)}>
                                 Accept
                             </button>
                            
-                            <button onClick={() => handleFriendReject(request.username)}>
+                            <button className="second-button" onClick={() => handleFriendReject(request.username)}>
                                 Reject
                             </button>
-                        </li>
+                        </div>
                     ))
-                    : []}
-            </ul>
+                ) : (
+                    <p className="no-friends-message">No pending requests.</p>
+                )}
+            </div>
 
 
             {showPopUp && (

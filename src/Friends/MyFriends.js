@@ -19,8 +19,6 @@ const MyFriends = () => {
         onError: (error) => {
             if (error.response && error.response.status === 401) {
                 setShowPopUp(true);
-            } else {
-                console.log("Something went Wrong!")
             }
         },
         retry: 1,
@@ -36,24 +34,40 @@ const MyFriends = () => {
         setShowPopUp(false);
     };
 
+    function formatDate(dateString) {
+        const options = { day: 'numeric', month: 'long', year: 'numeric' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+    }
+
     return (
-        <div>
-            <h1>My Friends</h1>
+        <div className="friends-container">
+            <h1 className="friends-title">My Friends</h1>
 
-            <ul style={{ listStyleType: 'none', padding: 0 }}>
-                {myFriends.data ? myFriends.data.map(friend => (
-                    <li
-                        key={friend.username}
-                        style={{ marginBottom: '1rem' }}
-                    >
-                        {friend.name}
-                        <br/>
-                        {friend.dob}
-                    </li>
+            <div className="friend-list-container">
+                {myFriends.data && myFriends.data.length > 0 ? (
+                    myFriends.data.map(friend => (
+                        <div key={friend.username} className="friend-item">
+            
+                            <div className="info-row">
+                                <span className="info-label">Name:</span>
+                                <span className="info-value">{friend.name}</span>
+                            </div>
 
-                )) : []}
-            </ul>
+                            <div className="info-row">
+                                <span className="info-label">Date of Birth:</span>
+                                <span className="info-value">{formatDate(friend.dob)}</span>
+                            </div>
 
+                            <div className="info-row">
+                                <span className="info-label">City:</span>
+                                <span className="info-value">{friend.city}</span>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p className="no-friends-message">No friends. Add some friends.</p>
+                )}
+            </div>
             {showPopUp && (
                 <PopUp
                     onYes={handlePopupYesClick}

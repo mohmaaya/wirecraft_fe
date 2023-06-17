@@ -1,10 +1,18 @@
 import SignUpPage from "./SignUpPage"
 import LoginPage from "./LoginPage"
-import UserIndex from './UserIndex'
+import Navbar from './UserIndex'
 import { useEffect } from 'react'
 import { Route, Routes, useNavigate, useLocation } from 'react-router-dom'
 import GenerateNewToken from './RefreshToken'
 import { FaEnvelope, FaPhone, FaGithub } from 'react-icons/fa';
+import MyFriends from "./Friends/MyFriends"
+import FriendsNearby from "./Friends/NearbyFriends"
+import PendingRequests from "./Friends/PendingRequests"
+import SentRequests from "./Friends/SentRequests"
+import RemoveFriend from "./Friends/RemoveFriend"
+import AddFriends from "./Friends/AddFriends"
+import UserProfile from "./UserProfile"
+import About from "./About"
 
 export default function App() {
 
@@ -34,7 +42,7 @@ export default function App() {
 
     useEffect(() => {
         const isAuthenticated = localStorage.getItem('loggedUsername');
-        const shouldRedirect = ['/SignUp', '/Login'].includes(location.pathname);
+        const shouldRedirect = ['/SignUp', '/Login', '/About'].includes(location.pathname);
 
         if (isAuthenticated && (shouldRedirect || location.pathname === '/')) {
             navigate('/Home', { replace: true });
@@ -46,6 +54,9 @@ export default function App() {
     return (
 
         <div className='App'>
+
+        <Navbar />
+
         <div className="github-links">
                 <a href="https://github.com/mohmaaya/wirecraft_be" target="_blank" rel="noopener noreferrer">
             <span className="link-icon">
@@ -62,16 +73,26 @@ export default function App() {
         </a>
         </div>
 
-
-        <Routes>
-            <Route path='/' />
-            <Route path='/SignUp' element={<SignUpPage />} />
-            <Route path='/Login' element={<LoginPage />} />
-            <Route path='/Home' element={<UserIndex />} />
+            <Routes>
+                <Route path="/" />
+                <Route path="/SignUp" element={<SignUpPage />} />
+                <Route path="/Login" element={<LoginPage />} />
+                <Route path="/About" element={<About />} />
+                <Route path="/Home/*">
+                    <Route index element={<About />} />
+                    <Route path="AddFriends" element={<AddFriends />} />
+                    <Route path="MyFriends" element={<MyFriends />} />
+                    <Route path="NearbyFriends" element={<FriendsNearby />} />
+                    <Route path="PendingRequests" element={<PendingRequests />} />
+                    <Route path="SentRequests" element={<SentRequests />} />
+                    <Route path="RemoveFriend" element={<RemoveFriend />} />
+                    <Route path="MyProfile" element={<UserProfile />} />
+                </Route>
             </Routes>
 
+
             <div className='footer'>
-                <span className="moving-text">
+                <span className="footer-text">
                     This Friends' web app is developed by Mohammed Ughratdar as a portfolio work.
                     Mohammed is looking for a fulltime position as a Developer.
                     He is skilled in both backend and frontend.
@@ -90,6 +111,11 @@ export default function App() {
                     <FaPhone size={24} />
                     +49 151 6868 0236
                 </span>
+
+                <a href="https://www.linkedin.com/in/mohammed-ughratdar" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin"></i>
+                    Linkedin Profile
+                </a>
             </div>
 
         </div>

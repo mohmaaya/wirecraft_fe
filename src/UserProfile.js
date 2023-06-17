@@ -19,8 +19,6 @@ const UserProfile = () => {
         onError: (error) => {
             if (error.response && error.response.status === 401) {
                 setShowPopUp(true);
-            } else {
-                console.log("Something went Wrong!")
             }
         },
         retry: 1,
@@ -36,32 +34,57 @@ const UserProfile = () => {
         setShowPopUp(false);
     };
 
-    return (
-        <div>
-            <h1>My Details</h1>
+    function formatDate(dateString) {
+        const options = { day: 'numeric', month: 'long', year: 'numeric' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+    }
 
-            <ul style={{ listStyleType: 'none', padding: 0 }}>
+    return (
+        <div className="friends-container">
+            <h1 className="friends-title">My Details</h1>
+            <div className="friend-list-container">
                 {myDetails.data ?
-                    <li
-                        key={myDetails.data.name}
-                        style={{ marginBottom: '1rem' }}
-                    >
-                        Name: {myDetails.data.name}
-                        <br />
-                        Date of Birth:{myDetails.data.dob}
-                        <br/>
-                        City: {myDetails.data.city}
-                        <br />
-                        Latitude: {myDetails.data.latitude} Longitude: {myDetails.data.longitude}
-                        <br />
-                        Description: {myDetails.data.desciption}
-                        <br />
-                        Friends: {myDetails.data.friends}
-                        <br />
-                    </li>
+                    <div className="friend-item">
+
+                        <div className="info-row">
+                            <span className="info-label">Name:</span>
+                            <span className="info-value">{myDetails.data.name}</span>
+                        </div>
+
+                        <div className="info-row">
+                            <span className="info-label">Date of Birth:</span>
+                            <span className="info-value">{formatDate(myDetails.data.dob)}</span>
+                        </div>
+
+                        <div className="info-row">
+                            <span className="info-label">City:</span>
+                            <span className="info-value">{myDetails.data.city}</span>
+                        </div>
+                        
+                        <div className="info-row">
+                            <span className="info-label">Latitude:</span>
+                            <span className="info-value">{myDetails.data.latitude}</span>
+                        </div>
+
+                        <div className="info-row">
+                            <span className="info-label">Longitude:</span>
+                            <span className="info-value">{myDetails.data.longitude}</span>
+                        </div>
+
+                        <div className="info-row">
+                            <span className="info-label">Designation:</span>
+                            <span className="info-value">{myDetails.data.designation}</span>
+                        </div>
+
+                        <div className="info-row">
+                            <span className="info-label">Friends:</span>
+                            <span className="info-value">{myDetails.data.friends}</span>
+                        </div>
+                       
+                    </div>
 
                  : []}
-            </ul>
+            </div>
 
             {showPopUp && (
                 <PopUp

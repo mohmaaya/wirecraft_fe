@@ -8,16 +8,13 @@ const GenerateNewToken = () => {
     const genNewToken = useMutation({
         mutationFn: refreshTokenApi,
         onSuccess: (data) => {
-            console.log("data", data)
             localStorage.removeItem('access_token');
             localStorage.setItem('access_token', data.access_token);
         },
         onError: (error) => {
             if (error.response && error.response.status === 403) {
                 userLogOut.mutate();
-            } else {
-                console.log("Something went wrong!");
-            }
+            } 
         }
     });
     

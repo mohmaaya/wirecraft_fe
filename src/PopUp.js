@@ -1,6 +1,5 @@
-
-import React from 'react'
-import ReactDom from 'react-dom'
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 const POPUP_STYLES = {
     position: 'fixed',
@@ -9,8 +8,9 @@ const POPUP_STYLES = {
     transform: 'translate(-50%, -50%)',
     backgroundColor: '#FFF',
     padding: '50px',
-    zIndex: 1000
-}
+    borderRadius: '10px', // Add border radius for curved edges
+    zIndex: 1000,
+};
 
 const OUTER_REGION_STYLES = {
     position: 'fixed',
@@ -19,22 +19,47 @@ const OUTER_REGION_STYLES = {
     right: 0,
     bottom: 0,
     backgroundColor: 'rgba(0, 0, 0, .6)',
-    zIndex: 1000
-}
+    zIndex: 1000,
+};
 
-const PopUp = ({onYes, onNo }) => {
-  
-    return ReactDom.createPortal(
+const TEXT_STYLES = {
+    fontFamily: 'Arial, sans-serif',
+    fontSize: '18px',
+    marginBottom: '20px',
+};
+
+const BUTTON_CONTAINER_STYLES = {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: '20px',
+    alignItems: 'center',
+    justifyContent: 'center',
+};
+
+const BUTTON_STYLES = {
+    fontFamily: 'Arial, sans-serif',
+    fontSize: '16px',
+    padding: '8px 16px',
+    borderRadius: '5px',
+    margin: '10px 0',
+    cursor: 'pointer',
+};
+
+const PopUp = ({ onYes, onNo }) => {
+
+    return ReactDOM.createPortal(
         <>
             <div style={OUTER_REGION_STYLES} />
             <div style={POPUP_STYLES}>
-               Session Expired, Stay Logged in ?
-                <button onClick={onYes}>Yes</button>
-                <button onClick={onNo}>No, Sign out.</button>
+                <p style={TEXT_STYLES}>Session Expired, Stay Logged in?</p>
+                <div style={BUTTON_CONTAINER_STYLES}>
+                    <button style={BUTTON_STYLES} onClick={onYes}>Yes</button>
+                    <button style={BUTTON_STYLES} onClick={onNo}>No, Sign out.</button>
+                </div>
             </div>
         </>,
         document.getElementById('popup')
-    )
-}
+    );
+};
 
-export default PopUp
+export default PopUp;
