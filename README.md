@@ -1,3 +1,6 @@
+Link to Backend Rep: https://github.com/mohmaaya/wirecraft_be
+<br>
+<br>
 This is a web application I have created which I have named Friends' App. It is a full-fledged application, and I wrote the complete frontend and the backend from scratch. The tech stack used are React Framework using JS in the Frontend and Express Framework in the backend. I used MongoDB for data persistence.
 
 Let's talk about the features.
