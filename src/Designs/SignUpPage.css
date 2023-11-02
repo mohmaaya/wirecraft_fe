@@ -2,10 +2,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     padding: 2rem;
     box-sizing: border-box;
-    margin-top: -15rem;
+    margin-top: -2rem;
 }
 
 .signup-form {

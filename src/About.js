@@ -48,7 +48,11 @@ const About = () => {
             <p style={paragraphStyle}>I have also written custom hooks such as useForm and some other functions like RefreshToken for code modularity and reusability.
                     New features can be easily added without any modification to the present codebase.</p>
                
- 
+            <p style={paragraphStyle} ><strong>Dummy Users for Testing</strong></p>
+
+            <p style={paragraphStyle} >Username: tom123 && Password: Qwerty123!</p>
+            <p style={paragraphStyle} >Username: ali123 && Password: Qwerty123!</p>
+            <p style={paragraphStyle} >Username: nick123 && Password: Qwerty123!</p>
             </div>
           
             

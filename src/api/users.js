@@ -2,7 +2,7 @@ import axios from "axios"
 
 export function createUser({ data }) {
     return axios
-        .post("http://localhost:5000/signup", {
+        .post("http://16.171.115.252:5000/signup", {
           data
         })
         .then(res => res.data)
@@ -10,7 +10,7 @@ export function createUser({ data }) {
 
 export function login({ data }) {
     return axios
-        .post("http://localhost:5000/login", {
+        .post("http://16.171.115.252:5000/login", {
             data
         })
         .then(res => res.data)
@@ -22,7 +22,7 @@ export function logOut() {
         'Authorization': `Bearer ${access_token}`
     };
     return axios
-        .delete("http://localhost:5000/logout", { headers: headers })
+        .delete("http://16.171.115.252:5000/logout", { headers: headers })
         .then(res => res.data)
 }
 
@@ -32,7 +32,7 @@ export function findFriendsApi() {
         'Authorization': `Bearer ${access_token}`
     };
     return axios
-        .get("http://localhost:4000/addfriends", { headers: headers })
+        .get("http://16.171.115.252:4000/addfriends", { headers: headers })
         .then(res => res.data)
 }
 
@@ -42,7 +42,7 @@ export function pendingRequestsApi() {
         'Authorization': `Bearer ${access_token}`
     };
     return axios
-        .get("http://localhost:4000/checkpending", { headers: headers })
+        .get("http://16.171.115.252:4000/checkpending", { headers: headers })
         .then(res => res.data)
 }
 
@@ -52,7 +52,7 @@ export function myFriendsApi() {
         'Authorization': `Bearer ${access_token}`
     };
     return axios
-        .get("http://localhost:4000/myfriends", { headers: headers })
+        .get("http://16.171.115.252:4000/myfriends", { headers: headers })
         .then(res => res.data)
 }
 
@@ -62,7 +62,7 @@ export function friendRequestApi({ friendUsername }) {
         'Authorization': `Bearer ${access_token}`
     };
     return axios
-        .post("http://localhost:4000/sendrequest",
+        .post("http://16.171.115.252:4000/sendrequest",
             { friendUsername },
             { headers: headers }
         )
@@ -75,7 +75,7 @@ export function acceptRequestApi({ friendUsername }) {
         'Authorization': `Bearer ${access_token}`
     };
     return axios
-        .post("http://localhost:4000/acceptfriend",
+        .post("http://16.171.115.252:4000/acceptfriend",
             { friendUsername },
             { headers: headers }
         )
@@ -88,7 +88,7 @@ export function declineRequestApi({ friendUsername }) {
         'Authorization': `Bearer ${access_token}`
     };
     return axios
-        .post("http://localhost:4000/declinerequest",
+        .post("http://16.171.115.252:4000/declinerequest",
             { friendUsername },
             { headers: headers }
         )
@@ -101,7 +101,7 @@ export function cancelSentRequestApi({ friendUsername }) {
         'Authorization': `Bearer ${access_token}`
     };
     return axios
-        .post("http://localhost:4000/cancelrequest",
+        .post("http://16.171.115.252:4000/cancelrequest",
             { friendUsername },
             { headers: headers }
         )
@@ -114,7 +114,7 @@ export function closestFriendsApi({ selectedFriendNum }) {
         'Authorization': `Bearer ${access_token}`
     };
     return axios
-        .get(`http://localhost:4000/friends/closest/${selectedFriendNum}`,
+        .get(`http://16.171.115.252:4000/friends/closest/${selectedFriendNum}`,
             { headers: headers }
         )
         .then(res => res.data)
@@ -126,7 +126,7 @@ export function removeFriendApi({ friendUsername }) {
         'Authorization': `Bearer ${access_token}`
     };
     return axios
-        .post("http://localhost:4000/removefriend",
+        .post("http://16.171.115.252:4000/removefriend",
             { friendUsername },
             { headers: headers }
         )
@@ -139,7 +139,7 @@ export function myDetailsApi() {
         'Authorization': `Bearer ${access_token}`
     };
     return axios
-        .get("http://localhost:4000/myprofile",
+        .get("http://16.171.115.252:4000/myprofile",
             { headers: headers }
         )
         .then(res => res.data)
@@ -151,7 +151,7 @@ export function sentRequestsApi() {
         'Authorization': `Bearer ${access_token}`
     };
     return axios
-        .get("http://localhost:4000/sentrequests",
+        .get("http://16.171.115.252:4000/sentrequests",
             { headers: headers }
         )
         .then(res => res.data)
@@ -163,6 +163,6 @@ export function refreshTokenApi() {
         'Authorization': `Bearer ${access_token}`
     };
     return axios
-        .get("http://localhost:5000/refreshtoken", { headers: headers })
+        .get("http://16.171.115.252:5000/refreshtoken", { headers: headers })
         .then(res => res.data);
 }
